@@ -1,26 +1,24 @@
-import { useState } from 'react'
-import './App.css'
-import { Routes,Route } from "react-router-dom"
-import ListItem from './components/ListItem'
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import "../src/styles/App.css";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  
-
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
 
   return (
     <>
-      <div>
-        <Routes>
-          <Route path="/" element={<ListItem />}/>
-        </Routes>
-      </div>
-      <p className="read-the-docs">
-      
-      </p>
+      <Navbar toggleSidebar={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} />
+      <Footer />
+      <h1>Main Content</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
