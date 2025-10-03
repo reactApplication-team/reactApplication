@@ -1,14 +1,22 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import "../src/styles/App.css";
 import Sidebar from "./components/Sidebar";
+import "../src/styles/App.css";
+import Footer from "./components/Footer";
 
-function App({ isSidebarOpen }) {
+function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
     <>
-      <Navbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
-      <h1>wgdaudkua</h1>
+      <Footer />
+      <h1>Main Content</h1>
     </>
   );
 }

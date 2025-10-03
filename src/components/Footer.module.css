@@ -1,0 +1,15 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footerImg {
+  height: 25px;
+}
+
+.footerBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

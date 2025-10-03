@@ -6,12 +6,11 @@ function Navbar({ toggleSidebar }) {
   return (
     <div className={styles.navbar}>
       <img className={styles.logo} src={logo} alt="Logo" />
-      <button className={styles.btnCart}>
+      <button className={styles.btnCart} onClick={toggleSidebar}>
         <img
           className={styles.shoppingCart}
           src={ShoppingCart}
           alt="Shopping Cart"
-          onClick={toggleSidebar}
         />
       </button>
     </div>
