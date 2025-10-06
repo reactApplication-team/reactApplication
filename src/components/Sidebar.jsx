@@ -9,10 +9,9 @@ function Sidebar({ isOpen }) {
         width: isOpen ? "250px" : "0px",
         transition: "width 0.3s",
         overflow: "hidden",
-        position: "fixed",
-        top: "53px",
+
         right: 0,
-        height: "100%",
+
         backgroundColor: "#f4f4f4",
         boxShadow: "-2px 0 5px rgba(0,0,0,0.3)",
         zIndex: 1000,
@@ -21,6 +20,7 @@ function Sidebar({ isOpen }) {
       <Link className={styles.sideBarLink} to="/">
         View Cart
       </Link>
+      <Link className={styles.sideBarCheckOut}>Check out</Link>
     </nav>
   );
 }
