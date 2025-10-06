@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios" 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useItems } from "../context/ItemsContext";
+import { useCart } from "../context/CartContext";
 
 const ListItem = () => {
-  // const [itemCard,setItemCard]=useState([]);
+  const [itemCard, setItemCard] = useState([]);
+  const { addToCart } = useCart();
   const { items,setItems} = useItems();
   const [page,setPage]=useState(1);
   const [limit,setLimit]=useState(15); //Items per page
@@ -60,7 +62,7 @@ const ListItem = () => {
             <h3>{item.title}</h3>
             <p>${item.price}</p>
             <img src={item.thumbnail} alt={item.title} style={{ width: "100%", height: "150px", objectFit: "contain" }}  loading="lazy" />
-            
+            <button onClick={() => addToCart(item)}>Add to cart</button>
           </div>
           </Link>
         ))}
@@ -111,8 +113,5 @@ const ListItem = () => {
   );
 };
 
-<<<<<<< HEAD
 export default ListItem;
-=======
-export default ListItem
->>>>>>> fcb44ba982767b8fbf414ff0e8e03080f04711bc
+
