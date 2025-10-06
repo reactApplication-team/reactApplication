@@ -1,13 +1,12 @@
-import React from 'react'
-import ItemList from '../components/ItemList'
-import ListItem from '../components/ListItem'
+import React from "react";
+import ListItem from "../components/ListItem";
 
 const DashboardPage = () => {
   return (
     <div>
       <ListItem />
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;

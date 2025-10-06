@@ -1,100 +1,118 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
+import axios from "axios" 
+import { useEffect,useState } from "react";
+import { useItems } from "../context/ItemsContext";
 
 const ListItem = () => {
-  const [itemCard, setItemCard] = useState([]);
-  const [cart, setCart] = useState([]);
+  // const [itemCard,setItemCard]=useState([]);
+  const { items,setItems} = useItems();
+  const [page,setPage]=useState(1);
+  const [limit,setLimit]=useState(15); //Items per page
+  const [total,setTotal] = useState(0);
+  const [loading,setLoading] = useState(false);
 
-  useEffect(() => {
-    const getItems = async () => {
-      try {
-        const { data } = await axios.get(
-          "https://dummyjson.com/products/?limit=20"
-        );
-        setItemCard(data.products);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getItems();
-  }, []);
+  const max_total = 190;
 
-  const addToCart = (item) => {
-    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-    if (existingItem) {
-      setCart(
-        cart.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
-      );
-    } else {
-      setCart([...cart, { ...item, quantity: 1 }]);
-    }
-  };
-
-  const handleCheckout = async () => {
+  const totalPages=Math.max(Math.ceil(total/limit),1);
+  
+  useEffect(()=>{
+    let ignore = false;
+  const getItems = async () => {
     try {
-      const products = cart.map((item) => ({
-        name: item.title,
-        price: item.price,
-        quantity: item.quantity,
-      }));
+      setLoading(true);
+      const skipPage=(page-1)*limit;
 
-      const res = await axios.post(
-        "http://localhost:5000/create-checkout-session",
-        {
-          products,
+      const remaining = Math.max(0, max_total - skipPage);
+        if (remaining <= 0) {
+          setItems([]);
+          return;
         }
-      );
+        const effectiveLimit = Math.min(limit, remaining);
 
-      window.location.href = res.data.url;
-    } catch (err) {
-      console.error("Checkout error:", err);
+      const {data} = await axios.get(`https://dummyjson.com/products/?limit=${effectiveLimit}&skip=${skipPage}`)
+      console.log(data);
+      if (!ignore) 
+        {setItems(data.products);
+          setTotal(Math.min(data.total, max_total))}
+
+    } catch (error) {
+      console.log(error) 
+    } finally{
+      setLoading(false);
     }
   };
+    getItems();
 
+    return () => { ignore = true; };
+  },[page,limit,setItems])
+   
   return (
-    <div>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {itemCard.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "10px",
-              margin: "10px",
-              width: "200px",
-            }}
-          >
+    
+    
+    <div style={{padding:'20px'}}>
+      {loading && <p>Loading...</p>}
+      {!loading && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "20px" }}>
+       {items.map(item=>(
+        <Link className="linkToDetiles" to={`/items/${item.id}`} key={item.id}>
+          <div >
             <h3>{item.title}</h3>
             <p>${item.price}</p>
-            <img
-              src={item.thumbnail}
-              alt={item.title}
-              style={{ width: "100%" }}
-            />
-            <button onClick={() => addToCart(item)}>Add to Cart</button>
+            <img src={item.thumbnail} alt={item.title} style={{ width: "100%", height: "150px", objectFit: "contain" }}  loading="lazy" />
+            
           </div>
+          </Link>
         ))}
-      </div>
+      
+    </div>
+    
+  )
+}
 
-      {cart.length > 0 && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Cart</h2>
-          {cart.map((item) => (
-            <div key={item.id}>
-              {item.title} — ${item.price} × {item.quantity}
-            </div>
+
+<div style={{ marginTop: "20px", textAlign: "center" }}>
+        <button
+          onClick={() => setPage((p) => Math.max(p - 1, 1))}
+          disabled={page === 1}
+          style={{ marginRight: "10px", padding: "6px 12px" }}
+        >
+          ← Prev
+        </button>
+
+        <span style={{ margin: "0 8px" }}>
+          Page {page} / {totalPages}(Total {total} items)
+        </span>
+
+        <button
+          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+          disabled={page === totalPages}
+          style={{ marginLeft: "10px", padding: "6px 12px" }}
+        >
+          Next →
+        </button>
+
+        <select
+          value={limit}
+          onChange={(e) => {
+            setLimit(Number(e.target.value));
+            setPage(1); 
+          }}
+          style={{ marginLeft: "12px", padding: "6px 8px" }}
+        >
+          {[12, 15, 20, 30, 50].map((n) => (
+            <option key={n} value={n}>
+              {n}/page
+            </option>
           ))}
-          <button onClick={handleCheckout} style={{ marginTop: "10px" }}>
-            Checkout Cart
-          </button>
-        </div>
-      )}
+        </select>
+      </div>
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default ListItem;
+=======
+export default ListItem
+>>>>>>> fcb44ba982767b8fbf414ff0e8e03080f04711bc
