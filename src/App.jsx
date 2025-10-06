@@ -1,50 +1,41 @@
 import { useState } from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import "../src/styles/App.css";
 import Footer from "./components/Footer";
-import DashboardPage from "./pages/DashboardPage";
-import { Routes, Route, Outlet } from "react-router-dom";
-import ListItem from './components/ListItem'
-import ItemsDetailsPage from './pages/ItemsDetailsPage'
-import NotFoundPage from './pages/NotFoundPage'
+import ListItem from "./components/ListItem";
+import ItemsDetailsPage from "./pages/ItemsDetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
-function PageWrapper()
-{
- return(
-   <div className="App">
-      <h1>Main Content</h1>
+
+import "../src/styles/App.css";
+
+function PageWrapper({ isSidebarOpen, toggleSidebar }) {
+  return (
+    <div className="App">
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
-      <Outlet />  
+      <main className="main-content">
+        <h1>Main Content</h1>
+        <Outlet />
+      </main>
+
       <Footer />
     </div>
- )
+  );
 }
 
-function App() {
+export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
-  };
-
+  const toggleSidebar = () => setIsSidebarOpen(p => !p);
 
   return (
-    <>
-    <div className="App">
-      <h1>Main Content</h1>
-      
-      
-       <Routes>
-          <Route element={<PageWrapper isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}/>
-         <Route path="/" element={<ListItem />}/>
-        <Route path="/items/:itemId" element={<ItemsDetailsPage />}/>
+    <Routes>
+    
+      <Route element={<PageWrapper isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}>
+        <Route index element={<ListItem />} />
+        <Route path="items/:itemId" element={<ItemsDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      </div>
-    </>
-      );
-}
-
-export default App;
+      </Route>
+    </Routes>
+  )};
