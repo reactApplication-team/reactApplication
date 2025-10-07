@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// ⬇️ Removed the duplicate import line:
-// import { useEffect, useState } from "react";
 import { useItems } from "../context/ItemsContext";
 import { useCart } from "../context/CartContext";
+import CheckoutButton from "./CheckoutButton"; // <-- add this
 
 const ListItem = () => {
   const [itemCard, setItemCard] = useState([]);
-  const { addToCart } = useCart();
+  const { cart, addToCart } = useCart(); // <-- include cart
   const { items, setItems } = useItems();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(15); // Items per page
@@ -36,7 +35,7 @@ const ListItem = () => {
         const { data } = await axios.get(
           `https://dummyjson.com/products/?limit=${effectiveLimit}&skip=${skipPage}`
         );
-        console.log(data);
+
         if (!ignore) {
           setItems(data.products);
           setTotal(Math.min(data.total, max_total));
@@ -132,7 +131,7 @@ const ListItem = () => {
           <ul>
             {cart.map((p) => (
               <li key={p.id}>
-                {p.title} × {p.quantity} = ${p.price * p.quantity}
+                {p.title} × {p.quantity} = ${(p.price * p.quantity).toFixed(2)}
               </li>
             ))}
           </ul>

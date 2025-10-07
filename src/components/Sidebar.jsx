@@ -18,7 +18,7 @@ function Sidebar({ isOpen }) {
         zIndex: 1000,
       }}
     >
-      <Link className={styles.sideBarLink} to="/">
+      <Link className={styles.sideBarLink} to="/cart">
         View Cart
       </Link>
       <Link className={styles.sideBarCheckOut}>Check out</Link>

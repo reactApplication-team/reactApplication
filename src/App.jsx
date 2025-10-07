@@ -6,9 +6,9 @@ import Footer from "./components/Footer";
 import ListItem from "./components/ListItem";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import CloudinaryGallery from "./components/CloudinaryGallery"
+import CloudinaryGallery from "./components/CloudinaryGallery";
 import WeatherWidget from "./components/WeatherWidget";
-
+import Cart from "./components/Cart";
 
 import "../src/styles/App.css";
 
@@ -44,6 +44,7 @@ export default function App() {
       >
         <Route index element={<ListItem />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
