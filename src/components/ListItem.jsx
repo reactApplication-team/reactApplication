@@ -3,31 +3,30 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useItems } from "../context/ItemsContext";
 import { useCart } from "../context/CartContext";
-import CheckoutButton from "./CheckoutButton"; // <-- add this
 
 const ListItem = () => {
-  const [itemCard, setItemCard] = useState([]);
-  const { cart, addToCart } = useCart(); // <-- include cart
-  const { items, setItems } = useItems();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(15); // Items per page
+  const [limit, setLimit] = useState(15);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  const max_total = 190;
+  const { items, setItems } = useItems();
+  const { addToCart } = useCart();
 
+  const max_total = 190;
   const totalPages = Math.max(Math.ceil(total / limit), 1);
 
   useEffect(() => {
     let ignore = false;
+
     const getItems = async () => {
       try {
         setLoading(true);
-        const skipPage = (page - 1) * limit;
 
+        const skipPage = (page - 1) * limit;
         const remaining = Math.max(0, max_total - skipPage);
         if (remaining <= 0) {
-          setItems([]);
+          if (!ignore) setItems([]);
           return;
         }
         const effectiveLimit = Math.min(limit, remaining);
@@ -41,13 +40,13 @@ const ListItem = () => {
           setTotal(Math.min(data.total, max_total));
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
-        setLoading(false);
+        if (!ignore) setLoading(false);
       }
     };
-    getItems();
 
+    getItems();
     return () => {
       ignore = true;
     };
@@ -56,6 +55,7 @@ const ListItem = () => {
   return (
     <div style={{ padding: "20px" }}>
       {loading && <p>Loading...</p>}
+
       {!loading && (
         <div
           style={{
@@ -69,7 +69,7 @@ const ListItem = () => {
               <Link className="linkToDetiles" to={`/items/${item.id}`}>
                 <div>
                   <h3>{item.title}</h3>
-                  <p>${item.price}</p>
+                  <p>${Number(item.price).toFixed(2)}</p>
                   <img
                     src={item.thumbnail}
                     alt={item.title}
@@ -81,8 +81,11 @@ const ListItem = () => {
                     loading="lazy"
                   />
                 </div>
-              </Link>{" "}
-              <button onClick={() => addToCart(item)}>Add to cart</button>
+              </Link>
+              <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
+                <button onClick={() => addToCart(item)}>Add to cart</button>
+                <Link to="/cart">Go to cart →</Link>
+              </div>
             </div>
           ))}
         </div>
@@ -124,20 +127,6 @@ const ListItem = () => {
           ))}
         </select>
       </div>
-
-      {cart.length > 0 && (
-        <div style={{ marginTop: "30px" }}>
-          <h2>Your Cart</h2>
-          <ul>
-            {cart.map((p) => (
-              <li key={p.id}>
-                {p.title} × {p.quantity} = ${(p.price * p.quantity).toFixed(2)}
-              </li>
-            ))}
-          </ul>
-          <CheckoutButton products={cart} />
-        </div>
-      )}
     </div>
   );
 };

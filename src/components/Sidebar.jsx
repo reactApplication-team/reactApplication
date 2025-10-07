@@ -5,6 +5,7 @@ import { useCart } from "../context/CartContext";
 function Sidebar({ isOpen }) {
   const { cart, increaseQuantity, decreaseQuantity, removeItem, getTotal } =
     useCart();
+
   return (
     <nav
       className={styles.sideBar}
@@ -21,7 +22,7 @@ function Sidebar({ isOpen }) {
       <Link className={styles.sideBarLink} to="/cart">
         View Cart
       </Link>
-      <Link className={styles.sideBarCheckOut}>Check out</Link>
+
       <aside>
         <h2>Cart ({cart.length})</h2>
 
