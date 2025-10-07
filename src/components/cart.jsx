@@ -1,7 +1,6 @@
 import { useCart } from "../context/CartContext";
 import CheckoutButton from "./CheckoutButton";
 
-// Robust number coercion
 function toNumber(v, fallback = 0) {
   if (typeof v === "number") return Number.isFinite(v) ? v : fallback;
   if (v == null) return fallback;
@@ -16,7 +15,6 @@ export default function Cart() {
   const { cart, increaseQuantity, decreaseQuantity, removeItem, clearCart } =
     useCart();
 
-  // Fixed normalization - properly handle nested product structure
   const normalized = cart.map((entry, idx) => {
     const product = entry.product;
     const id = product?.id ?? `tmp_${idx}`;
@@ -34,7 +32,6 @@ export default function Cart() {
     0
   );
 
-  // Pass clean data to CheckoutButton
   const productsForCheckout = normalized.map(({ title, unit, qty }) => ({
     name: title,
     price: Number.isFinite(unit) ? unit : 0,
@@ -43,10 +40,10 @@ export default function Cart() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h2>Your Cart</h2>
+      <h2>Your Cart:</h2>
 
       {normalized.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p>Your cart is empty!</p>
       ) : (
         <>
           <ul style={{ listStyle: "none", padding: 0 }}>
