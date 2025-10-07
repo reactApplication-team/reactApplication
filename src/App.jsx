@@ -3,11 +3,11 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-import ListItem from "./components/ListItem";
+
+import DashboardPage from "./pages/DashboardPage";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import CloudinaryGallery from "./components/CloudinaryGallery";
-import WeatherWidget from "./components/WeatherWidget";
+
 import Cart from "./components/Cart";
 
 import "../src/styles/App.css";
@@ -17,12 +17,7 @@ function PageWrapper({ isSidebarOpen, toggleSidebar }) {
     <div className="App">
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
-      <main className="main-content">
-        <h1>Main Content</h1>
-        <CloudinaryGallery />
-        <WeatherWidget />
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
     </div>
   );
@@ -42,7 +37,7 @@ export default function App() {
           />
         }
       >
-        <Route index element={<ListItem />} />
+        <Route path="/" element={<DashboardPage />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFoundPage />} />
