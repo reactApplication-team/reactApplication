@@ -65,12 +65,11 @@ const ListItem = () => {
           }}
         >
           {items.map((item) => (
-            <div>
+            <div key={item.id}>
               <Link
                 className="linkToDetiles"
                 to={`/items/${item.id}`}
-                key={item.id}
-              >
+                 >
                 <div>
                   <h3>{item.title}</h3>
                   <p>${item.price}</p>
