@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+// ⬇️ Removed the duplicate import line:
+// import { useEffect, useState } from "react";
 import { useItems } from "../context/ItemsContext";
 import { useCart } from "../context/CartContext";
 
@@ -10,7 +11,7 @@ const ListItem = () => {
   const { addToCart } = useCart();
   const { items, setItems } = useItems();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(15); //Items per page
+  const [limit, setLimit] = useState(15); // Items per page
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -65,12 +66,8 @@ const ListItem = () => {
           }}
         >
           {items.map((item) => (
-            <div>
-              <Link
-                className="linkToDetiles"
-                to={`/items/${item.id}`}
-                key={item.id}
-              >
+            <div key={item.id}>
+              <Link className="linkToDetiles" to={`/items/${item.id}`}>
                 <div>
                   <h3>{item.title}</h3>
                   <p>${item.price}</p>

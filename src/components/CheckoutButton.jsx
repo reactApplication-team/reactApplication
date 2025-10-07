@@ -1,37 +1,58 @@
+import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(
-  "pk_test_51SE9SOAMwxa3AqB4NBFeGgjN73ICDqbpvvl8Is3h6Qo9C38gagGGnYiEvRZGHnoBXYhcvcOiygJsbUvpoh0UpILh00PKGcuw84"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
-export default function CheckoutButton({ products }) {
+export default function CheckoutButton({ products = [] }) {
+  const [loading, setLoading] = useState(false);
+
   const handleCheckout = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:5000/create-checkout-session",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ products }),
-        }
-      );
+      if (!products.length) {
+        alert("Your cart is empty.");
+        return;
+      }
+      setLoading(true);
 
-      if (!response.ok) throw new Error("Failed to create checkout session");
+      const res = await fetch("http://localhost:5000/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ products }),
+      });
 
-      const data = await response.json();
-      window.location.href = data.url;
+      const payload = await res.json();
+
+      if (!res.ok) {
+        throw new Error(payload?.error || `Failed (HTTP ${res.status})`);
+      }
+
+      if (!payload.url) throw new Error("No checkout URL returned from server");
+
+      window.location.href = payload.url;
     } catch (err) {
       console.error("Checkout error:", err);
-      alert("Something went wrong: " + err.message);
+      alert(`Checkout error: ${err.message || "Something went wrong"}`);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <button
       onClick={handleCheckout}
-      style={{ padding: "10px", fontSize: "16px" }}
+      disabled={loading}
+      style={{
+        padding: "10px 20px",
+        fontSize: "16px",
+        background: loading ? "#96A0F0" : "#6772E5",
+        color: "#fff",
+        border: "none",
+        borderRadius: "4px",
+        cursor: loading ? "default" : "pointer",
+        opacity: loading ? 0.8 : 1,
+      }}
     >
-      Checkout
+      {loading ? "Redirecting…" : "Checkout"}
     </button>
   );
 }
