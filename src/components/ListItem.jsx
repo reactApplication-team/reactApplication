@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useItems } from "../context/ItemsContext";
-import CheckoutButton from "./CheckoutButton";
+import { useCart } from "../context/CartContext";
 
 const ListItem = () => {
+  const [itemCard, setItemCard] = useState([]);
+  const { addToCart } = useCart();
   const { items, setItems } = useItems();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(15);
+  const [limit, setLimit] = useState(15); //Items per page
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [cart, setCart] = useState([]);
 
   const max_total = 190;
+
   const totalPages = Math.max(Math.ceil(total / limit), 1);
 
   useEffect(() => {
@@ -21,6 +24,7 @@ const ListItem = () => {
       try {
         setLoading(true);
         const skipPage = (page - 1) * limit;
+
         const remaining = Math.max(0, max_total - skipPage);
         if (remaining <= 0) {
           setItems([]);
@@ -31,7 +35,7 @@ const ListItem = () => {
         const { data } = await axios.get(
           `https://dummyjson.com/products/?limit=${effectiveLimit}&skip=${skipPage}`
         );
-
+        console.log(data);
         if (!ignore) {
           setItems(data.products);
           setTotal(Math.min(data.total, max_total));
@@ -43,22 +47,11 @@ const ListItem = () => {
       }
     };
     getItems();
+
     return () => {
       ignore = true;
     };
   }, [page, limit, setItems]);
-
-  const addToCart = (item) => {
-    setCart((prev) => {
-      const existing = prev.find((p) => p.id === item.id);
-      if (existing) {
-        return prev.map((p) =>
-          p.id === item.id ? { ...p, quantity: p.quantity + 1 } : p
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -72,27 +65,28 @@ const ListItem = () => {
           }}
         >
           {items.map((item) => (
-            <div key={item.id}>
-              <Link className="linkToDetiles" to={`/items/${item.id}`}>
-                <h3>{item.title}</h3>
-                <p>${item.price}</p>
-                <img
-                  src={item.thumbnail}
-                  alt={item.title}
-                  style={{
-                    width: "100%",
-                    height: "150px",
-                    objectFit: "contain",
-                  }}
-                  loading="lazy"
-                />
-              </Link>
-              <button
-                onClick={() => addToCart(item)}
-                style={{ marginTop: "5px" }}
+            <div>
+              <Link
+                className="linkToDetiles"
+                to={`/items/${item.id}`}
+                key={item.id}
               >
-                Add to Cart
-              </button>
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>${item.price}</p>
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "contain",
+                    }}
+                    loading="lazy"
+                  />
+                </div>
+              </Link>{" "}
+              <button onClick={() => addToCart(item)}>Add to cart</button>
             </div>
           ))}
         </div>

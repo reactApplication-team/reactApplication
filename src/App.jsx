@@ -6,6 +6,9 @@ import Footer from "./components/Footer";
 import ListItem from "./components/ListItem";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import CloudinaryGallery from "./components/CloudinaryGallery"
+import WeatherWidget from "./components/WeatherWidget";
+
 
 import "../src/styles/App.css";
 
@@ -16,9 +19,10 @@ function PageWrapper({ isSidebarOpen, toggleSidebar }) {
       <Sidebar isOpen={isSidebarOpen} />
       <main className="main-content">
         <h1>Main Content</h1>
+        <CloudinaryGallery />
+        <WeatherWidget />
         <Outlet />
       </main>
-
       <Footer />
     </div>
   );
