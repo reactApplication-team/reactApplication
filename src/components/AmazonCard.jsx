@@ -22,6 +22,7 @@ function AmazonCard({
   clickable = false,
   onAction,
   weather,
+  className=''
 }) {
   const weatherBadge = pickBadgeByWeather(weather);
   const showBadge = badge ?? weatherBadge;
@@ -71,9 +72,11 @@ function AmazonCard({
 
  
   return clickable && tHref ? (
+    <article className={`amazon-card ${className}`}>
     <Link to={tHref} state={{ item }} className="amazon-card-link">
       {content}
     </Link>
+    </article>
   ) : (
     content
   );

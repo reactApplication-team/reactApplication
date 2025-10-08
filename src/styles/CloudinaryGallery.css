@@ -1,6 +1,6 @@
 
 .cld-gallery-wrap {
-  max-width: 960px;      
+  max-width: 720px;      
   margin: 0 auto;
   padding: 16px 12px;
 }
@@ -8,7 +8,7 @@
 
 #my-gallery {
   width: 100%;
-  height: clamp(360px, 60vh, 720px); 
+  height: clamp(300px, 45vh, 560px); 
 }
 
 

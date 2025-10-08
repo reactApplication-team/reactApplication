@@ -9,9 +9,7 @@ function pickByWeather(items, weather) {
   if (!Array.isArray(items) || items.length === 0) return [];
   const t = weather?.feelsLike ?? weather?.temp;
 
-
   if (t == null) return items.slice(0, 4);
-
 
   let keywords = [];
   if (t >= 20) {
@@ -26,15 +24,12 @@ function pickByWeather(items, weather) {
     keywords.some((k) => s.toLowerCase().includes(k.toLowerCase()));
 
   let list = items.filter((it) => hit(it.title));
-
- 
   if (list.length < 4) {
     const extras = items.filter((it) => !hit(it.title));
     list = [...list, ...extras].slice(0, 4);
   } else {
     list = list.slice(0, 4);
   }
-
   return list;
 }
 
@@ -45,9 +40,7 @@ const DashboardPage = () => {
     city: "",
   });
 
- 
   const { items } = useItems();
-
 
   const picks = useMemo(
     () => pickByWeather(items, weatherInfo),
@@ -56,7 +49,6 @@ const DashboardPage = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-   
       {weatherInfo.temp !== null ? (
         <div
           style={{
@@ -66,7 +58,7 @@ const DashboardPage = () => {
             marginBottom: "15px",
           }}
         >
-          <strong>{weatherInfo.city}</strong> — Temperature: {weatherInfo.temp} °C, Feels like:{" "}
+          <strong>{weatherInfo.city}</strong> — Temperature: {weatherInfo.temp} °C, Feels like{" "}
           {weatherInfo.feelsLike} °C
         </div>
       ) : (
@@ -74,33 +66,26 @@ const DashboardPage = () => {
       )}
 
       <CloudinaryGallery />
-
-  
       <WeatherWidget onWeatherChange={setWeatherInfo} />
 
-    
+      
       <section style={{ margin: "20px 0" }}>
         <h2 style={{ marginBottom: 10 }}>Recommended for the weather</h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            gap: 20,
-          }}
-        >
+
+      
+        <div className="amazon-cards amazon-cards--spotlight">
           {picks.map((p) => (
             <AmazonCard
               key={p.id}
-              item={p}               
-              weather={weatherInfo}  
-              clickable               
+              item={p}
+              weather={weatherInfo}
+              clickable
+              className="amazon-card--spotlight" 
             />
           ))}
         </div>
       </section>
-
-     
-      <ListItem />
+         <ListItem />
     </div>
   );
 };
