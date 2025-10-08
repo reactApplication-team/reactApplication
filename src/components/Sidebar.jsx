@@ -1,10 +1,22 @@
 import { Link } from "react-router-dom";
 import styles from "../components/Sidebar.module.css";
 import { useCart } from "../context/CartContext";
+import CheckoutButton from "./CheckoutButton";
 
 function Sidebar({ isOpen }) {
   const { cart, increaseQuantity, decreaseQuantity, removeItem, getTotal } =
     useCart();
+
+  // Map your cart into the shape your backend expects as "products"
+  const productsForCheckout = cart.map(({ product, quantity }) => ({
+    id: product.id, // adjust keys if your backend expects sku or productId
+    title: product.title,
+    price: product.price,
+    quantity,
+  }));
+
+  // Match your navbar height (logo 50px + 2px border ≈ 52px). Tweak if needed.
+  const NAVBAR_HEIGHT = 52;
 
   return (
     <nav
@@ -12,14 +24,16 @@ function Sidebar({ isOpen }) {
       style={{
         width: isOpen ? "300px" : "0px",
         transition: "width 0.3s",
-        right: 0,
-        top: 0,
-        height: "100vh",
         position: "fixed",
+        right: 0,
+        top: `${NAVBAR_HEIGHT}px`, // ⬅️ sits below navbar
+        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`, // ⬅️ fills remaining height
         backgroundColor: "#F4F4F4",
         boxShadow: "-2px 0 5px rgba(0,0,0,0.3)",
-        zIndex: 1000,
+        zIndex: 9000, // lower than navbar's 10000 so it never overlaps
         overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <div className={styles.sideBarHeader}>
@@ -63,8 +77,14 @@ function Sidebar({ isOpen }) {
 
       <div className={styles.cartFooter}>
         <strong>Total: ${getTotal().toFixed(2)}</strong>
+
+        <CheckoutButton
+          className={styles.checkoutBtn}
+          products={productsForCheckout}
+        />
       </div>
     </nav>
   );
 }
+
 export default Sidebar;
