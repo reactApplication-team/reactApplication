@@ -30,7 +30,6 @@ function Navbar({ toggleSidebar }) {
       <Link to="/" aria-label="Home">
         <img className={styles.logo} src={logo} alt="Logo" />
       </Link>
-      <img className={styles.logo} src={logo} alt="Logo" />
       <ul className={styles.menu}>
         {divisionsList.map((div) => (
           <li

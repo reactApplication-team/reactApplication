@@ -8,6 +8,8 @@
   color: #000;
   padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid black;
+  z-index: 10000;
 }
 
 .logo {

@@ -1,0 +1,29 @@
+
+.cld-gallery-wrap {
+  max-width: 960px;      
+  margin: 0 auto;
+  padding: 16px 12px;
+}
+
+
+#my-gallery {
+  width: 100%;
+  height: clamp(360px, 60vh, 720px); 
+}
+
+
+#my-gallery .cld-thumbnails { width: 84px; }     
+#my-gallery .cld-thumbnails .cld-thumbnail {
+  width: 64px;
+  height: 64px;
+}
+
+
+#my-gallery .cld-main-media { height: 100%; }
+#my-gallery .cld-main-media__content { height: 100%; }
+#my-gallery .cld-main-media__content img,
+#my-gallery .cld-main-media__content video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
