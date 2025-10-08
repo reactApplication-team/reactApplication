@@ -1,7 +1,13 @@
 .navbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 100vw;
+  background-color: #ffffff;
+  border-bottom: 2px solid #000;
+  color: #000;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   border-bottom: 2px solid black;
   z-index: 10000;
 }
@@ -9,24 +15,78 @@
 .logo {
   height: 50px;
   position: relative;
-  left: 23px;
-  top: 0px;
+  left: 20px;
 }
 
-.shoppingCart {
-  height: 25px;
-  cursor: pointer;
+.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.menuItem {
   position: relative;
-  right: 23px;
-  top: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.menuItem:hover {
+  color: #007bff;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 8px 0;
+  list-style: none;
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.dropdownItem {
+  padding: 8px 15px;
+  white-space: nowrap;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdownItem a {
+  color: #000;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownItem a:hover {
+  color: #007bff;
 }
 
 .btnCart {
   all: unset;
   cursor: pointer;
+  margin-right: 20px;
+}
+
+.shoppingCart {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s ease;
 }
 
 .shoppingCart:hover {
-  cursor: pointer;
-  background-color: red;
+  transform: scale(1.1);
 }

@@ -1,0 +1,23 @@
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-08 11:13:42 +0200}: reset: moving to HEAD@{5}
+[33m39125f4[m HEAD@{2025-10-08 11:12:15 +0200}: reset: moving to HEAD@{6}
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-08 11:04:12 +0200}: checkout: moving from CartPage to CartPage
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-08 10:58:35 +0200}: checkout: moving from main to CartPage
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-08 10:57:49 +0200}: rebase (finish): returning to refs/heads/main
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-08 10:52:37 +0200}: checkout: moving from CartPage to CartPage
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-08 02:15:57 +0200}: checkout: moving from 20c9cd9cd0983451316e0e49b1a0383e906278f3 to CartPage
+[33m20c9cd9[m HEAD@{2025-10-08 02:15:08 +0200}: commit: img navbar display not working
+[33m39125f4[m HEAD@{2025-10-08 01:55:46 +0200}: rebase (start): checkout origin/main
+[33ma410c8d[m HEAD@{2025-10-08 01:53:53 +0200}: commit: nav dropdown + tag pages
+[33mf2701bd[m HEAD@{2025-10-06 12:04:55 +0200}: commit: merging done 2
+[33m6e4c547[m HEAD@{2025-10-06 11:58:52 +0200}: commit (merge): Merge remote-tracking branch 'origin/CartPage'
+[33me900bc3[m HEAD@{2025-10-06 11:45:44 +0200}: reset: moving to HEAD
+[33me900bc3[m HEAD@{2025-10-06 11:31:51 +0200}: reset: moving to HEAD
+[33me900bc3[m HEAD@{2025-10-06 11:30:39 +0200}: merge origin/CartPage: updating HEAD
+[33me900bc3[m HEAD@{2025-10-06 11:11:03 +0200}: pull origin main: Fast-forward
+[33mafd0c99[m HEAD@{2025-10-06 11:10:56 +0200}: checkout: moving from main to main
+[33mafd0c99[m HEAD@{2025-10-06 11:04:48 +0200}: checkout: moving from CartPage to main
+[33mfcb44ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mCartPage[m[33m, [m[1;31morigin/CartPage[m[33m, [m[1;32mmain[m[33m, [m[1;32mbackup-before-reset[m[33m)[m HEAD@{2025-10-06 11:04:37 +0200}: reset: moving to origin/main
+[33mfe42c1b[m[33m ([m[1;31morigin/pau/wishlist[m[33m)[m HEAD@{2025-10-03 17:59:04 +0200}: commit: add items to sidebar cart implemented
+[33mafd0c99[m HEAD@{2025-10-03 15:46:57 +0200}: checkout: moving from main to CartPage
+[33mafd0c99[m HEAD@{2025-10-03 15:30:55 +0200}: pull origin main: Fast-forward
+[33m09d4fe1[m HEAD@{2025-10-02 16:24:19 +0200}: clone: from https://github.com/reactApplication-team/reactApplication.git

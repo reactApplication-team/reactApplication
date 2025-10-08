@@ -21,13 +21,20 @@ export default function WeatherWidget({ lat = 52.52, lon = 13.41 }) {
   if (!data) return <div>Loading…</div>;
 
   const codeToday = data.daily.weather_code[0];
-  const weather = WMO_MAP[codeToday] ?? { text: `Unknown (${codeToday})`, emoji: "❓" };
+  const weather = WMO_MAP[codeToday] ?? {
+    text: `Unknown (${codeToday})`,
+    emoji: "❓",
+  };
 
   return (
     <div>
-      <h3>Today's weather: {weather.emoji} {weather.text}</h3>
+      <h3>
+        Today's weather: {weather.emoji} {weather.text}
+      </h3>
       <p>Current temperature: {data.hourly.temperature_2m[0]} °C</p>
-      <p>Precipitation probability: {data.hourly.precipitation_probability[0]}%</p>
+      <p>
+        Precipitation probability: {data.hourly.precipitation_probability[0]}%
+      </p>
     </div>
   );
 }
