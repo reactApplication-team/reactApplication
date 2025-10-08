@@ -58,21 +58,20 @@ const DashboardPage = () => {
             marginBottom: "15px",
           }}
         >
-          <strong>{weatherInfo.city}</strong> — Temperature: {weatherInfo.temp} °C, Feels like{" "}
-          {weatherInfo.feelsLike} °C
+          <strong>{weatherInfo.city}</strong> — Temperature: {weatherInfo.temp}{" "}
+          °C, Feels like {weatherInfo.feelsLike} °C
         </div>
       ) : (
         <p style={{ color: "#666" }}>Select a city to see temperature.</p>
       )}
 
       <CloudinaryGallery />
-      <WeatherWidget onWeatherChange={setWeatherInfo} />
 
-      
+      <ListItem />
+      <WeatherWidget onWeatherChange={setWeatherInfo} />
       <section style={{ margin: "20px 0" }}>
         <h2 style={{ marginBottom: 10 }}>Recommended for the weather</h2>
 
-      
         <div className="amazon-cards amazon-cards--spotlight">
           {picks.map((p) => (
             <AmazonCard
@@ -80,12 +79,11 @@ const DashboardPage = () => {
               item={p}
               weather={weatherInfo}
               clickable
-              className="amazon-card--spotlight" 
+              className="amazon-card--spotlight"
             />
           ))}
         </div>
       </section>
-         <ListItem />
     </div>
   );
 };
