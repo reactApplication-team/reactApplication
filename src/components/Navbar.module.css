@@ -1,42 +1,37 @@
 .navbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 100vw;
-  background-color: #ffffff;
-  border-bottom: 2px solid #000;
-  color: #000;
-  padding: 10px 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 24px;
   border-bottom: 2px solid black;
   z-index: 10000;
+  background: #fff;
+  max-width: 100%;
 }
 
 .logo {
   height: 50px;
-  position: relative;
-  left: 20px;
+  position: static;
+  display: block;
 }
 
 .menu {
   list-style: none;
   display: flex;
-  align-items: center;
-  gap: 25px;
+  gap: 18px;
   margin: 0;
   padding: 0;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .menuItem {
   position: relative;
   cursor: pointer;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: color 0.2s ease;
-}
-
-.menuItem:hover {
-  color: #007bff;
 }
 
 .dropdown {
@@ -62,7 +57,8 @@
 }
 
 .dropdownItem:hover {
-  background-color: #f0f0f0;
+  background-color: #b08d57;
+  color: white;
 }
 
 .dropdownItem a {
@@ -70,23 +66,53 @@
   text-decoration: none;
   display: block;
 }
-
 .dropdownItem a:hover {
-  color: #007bff;
+  color: #e3e3e3;
+  text-decoration: none;
+  display: block;
+}
+
+.shoppingCart {
+  height: 25px;
+  cursor: pointer;
+  position: relative;
+  right: 23px;
+  top: 3px;
 }
 
 .btnCart {
   all: unset;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
-  margin-right: 20px;
+  padding: 6px 12px;
 }
 
-.shoppingCart {
-  width: 30px;
-  height: 30px;
-  transition: transform 0.2s ease;
+.btnCart {
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 12px;
 }
 
-.shoppingCart:hover {
-  transform: scale(1.1);
+.cartBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #3f3f3f;
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px #fff;
 }

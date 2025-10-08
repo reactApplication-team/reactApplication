@@ -142,7 +142,7 @@ const ListItem = () => {
 
                 <p
                   style={{
-                    color: "#B12704",
+                    color: "#743b3bff",
                     fontWeight: "bold",
                     fontSize: "18px",
                     margin: "4px 0 0 0",
