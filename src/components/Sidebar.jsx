@@ -7,15 +7,13 @@ function Sidebar({ isOpen }) {
   const { cart, increaseQuantity, decreaseQuantity, removeItem, getTotal } =
     useCart();
 
-  // Map your cart into the shape your backend expects as "products"
   const productsForCheckout = cart.map(({ product, quantity }) => ({
-    id: product.id, // adjust keys if your backend expects sku or productId
+    id: product.id,
     title: product.title,
     price: product.price,
     quantity,
   }));
 
-  // Match your navbar height (logo 50px + 2px border ≈ 52px). Tweak if needed.
   const NAVBAR_HEIGHT = 52;
 
   return (
