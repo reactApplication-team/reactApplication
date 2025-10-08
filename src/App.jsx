@@ -3,14 +3,11 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-
 import DashboardPage from "./pages/DashboardPage";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TagPage from "./pages/TagsPage";
-
 import Cart from "./components/Cart";
-
 import "../src/styles/App.css";
 import ListItem from "./components/ListItem";
 
