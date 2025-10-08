@@ -1,7 +1,16 @@
 .sideBar {
   background: lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  justify-content: start;
+  height: 92vh;
+  position: fixed;
+  top: 53px;
+  margin: 0;
+  padding: 0;
 }
-
 .sideBarLink {
   text-decoration: none;
   color: black;
@@ -11,15 +20,36 @@
   justify-content: center;
   padding-top: 10px;
 }
-
 .sideBarLink:hover {
   text-decoration: none;
-  color: yellow;
-  background-color: rgb(56, 56, 56);
+  color: rgb(2, 136, 254);
   border-radius: 40px;
   font-weight: bold;
   font-size: 20px;
   display: flex;
   justify-content: center;
+}
+.sideBarCheckOut {
+  text-decoration: none;
+  color: rgb(56, 56, 56);
+  background-color: rgb(246, 221, 35);
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 20px;
   padding: 10px 0;
+  position: absolute;
+  bottom: 10px;
+  right: 70px;
+}
+.sideBarCheckOut:hover {
+  text-decoration: none;
+  color: rgb(56, 56, 56);
+  background-color: rgb(246, 141, 35);
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 10px;
+  right: 70px;
 }

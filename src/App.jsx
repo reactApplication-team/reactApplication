@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import ListItem from "./components/ListItem";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-
+import TagPage from "./pages/TagsPage";
 
 import "../src/styles/App.css";
 
@@ -27,15 +27,23 @@ function PageWrapper({ isSidebarOpen, toggleSidebar }) {
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const toggleSidebar = () => setIsSidebarOpen(p => !p);
+  const toggleSidebar = () => setIsSidebarOpen((p) => !p);
 
   return (
     <Routes>
-    
-      <Route element={<PageWrapper isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}>
+      <Route
+        element={
+          <PageWrapper
+            isSidebarOpen={isSidebarOpen}
+            toggleSidebar={toggleSidebar}
+          />
+        }
+      >
         <Route index element={<ListItem />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/tags/:tag" element={<TagPage />} />
       </Route>
     </Routes>
-  )};
+  );
+}
