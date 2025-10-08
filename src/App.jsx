@@ -8,6 +8,8 @@ import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TagPage from "./pages/TagsPage";
 import Cart from "./components/Cart";
+import CreateItemPage from "../src/pages/CreateItemPage"
+import UpdateItemPage from "../src/pages/UpdateItemPage"
 import "../src/styles/App.css";
 
 
@@ -41,7 +43,8 @@ export default function App() {
           />
         }
       >
-       
+        <Route path="/items/new" element={<CreateItemPage />} />
+        <Route path="/items/:itemId/edit" element={<UpdateItemPage />} /> 
         <Route path="/" element={<DashboardPage />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
         <Route path="/cart" element={<Cart />} />
