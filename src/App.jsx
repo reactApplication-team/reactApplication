@@ -3,23 +3,23 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-
-import DashboardPage from "./pages/DashboardPage";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import TagPage from "./pages/TagsPage";
-
-import Cart from "./components/Cart";
+import DashboardPage from "./pages/DashboardPage"
 
 import "../src/styles/App.css";
-import ListItem from "./components/ListItem";
+
 
 function PageWrapper({ isSidebarOpen, toggleSidebar }) {
   return (
     <div className="App">
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
-      <Outlet />
+      <main className="main-content">
+        <h1>Main Content</h1>
+    
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
@@ -39,7 +39,7 @@ export default function App() {
           />
         }
       >
-        <Route index element={<ListItem />} />
+       
         <Route path="/" element={<DashboardPage />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
         <Route path="/cart" element={<Cart />} />
