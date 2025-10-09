@@ -175,7 +175,7 @@ const ListItem = () => {
                     transition: "background 0.2s",
                   }}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#3a3a35ff")
+                    (e.currentTarget.style.backgroundColor = "#454545ff")
                   }
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.backgroundColor = "#161615ff")
