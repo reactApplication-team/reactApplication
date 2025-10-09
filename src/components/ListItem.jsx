@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useItems } from "../context/ItemsContext";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 const ListItem = () => {
   const [page, setPage] = useState(1);
@@ -12,19 +13,18 @@ const ListItem = () => {
 
   const { items, setItems } = useItems();
   const { addToCart } = useCart();
+  const { role, toggleRole } = useUser();
 
   const max_total = 190;
   const totalPages = Math.max(Math.ceil(total / limit), 1);
 
   useEffect(() => {
     let ignore = false;
-
-    const getItems = async () => {
+    const fetchItems = async () => {
       try {
         setLoading(true);
-
-        const skipPage = (page - 1) * limit;
-        const remaining = Math.max(0, max_total - skipPage);
+        const skip = (page - 1) * limit;
+        const remaining = Math.max(0, max_total - skip);
         if (remaining <= 0) {
           if (!ignore) {
             setItems([]);
@@ -35,7 +35,7 @@ const ListItem = () => {
         const effectiveLimit = Math.min(limit, remaining);
 
         const { data } = await axios.get(
-          `https://dummyjson.com/products/?limit=${effectiveLimit}&skip=${skipPage}`
+          `https://dummyjson.com/products/?limit=${effectiveLimit}&skip=${skip}`
         );
 
         if (!ignore) {
@@ -48,26 +48,80 @@ const ListItem = () => {
         if (!ignore) setLoading(false);
       }
     };
-
-    getItems();
+    fetchItems();
     return () => {
       ignore = true;
     };
   }, [page, limit, setItems]);
 
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
+    try {
+      await axios.delete(`https://dummyjson.com/products/${id}`);
+      setItems((prev) => prev.filter((p) => p.id !== id));
+      setTotal((t) => Math.max(t - 1, 0));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete item. Please try again later.");
+    }
+  };
+
+
   return (
-    <div
-      style={{
-        padding: "20px",
-        backgroundColor: "#f3f3f3",
-        minHeight: "100vh",
-      }}
-    >
-      {loading && (
-        <div style={{ textAlign: "center", padding: "40px 0" }}>
-          <p style={{ fontSize: 16 }}>Loading products…</p>
-        </div>
-      )}
+    <div style={{ padding: "20px" }}>
+     
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          background: "#f8fafc",
+          zIndex: 10,
+          padding: "12px 16px",
+          borderRadius: 10,
+          marginBottom: 20,
+          boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <button
+          onClick={toggleRole}
+          style={{
+            padding: "8px 14px",
+            borderRadius: 8,
+            border: "none",
+            cursor: "pointer",
+            background: role === "admin" ? "#2563eb" : "#9ca3af",
+            color: "white",
+            fontWeight: 600,
+            fontSize: "14px",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          }}
+        >
+          Current Role: {role === "admin" ? "Admin" : "Customer"} (click to switch)
+        </button>
+
+        {role === "admin" && (
+          <Link
+            to="/items/new"
+            style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: "#2563eb",
+              color: "#fff",
+              textDecoration: "none",
+              fontWeight: 600,
+            }}
+          >
+            + New Item
+          </Link>
+        )}
+      </div>
+
+   
+      {loading && <p>Loading items...</p>}
 
       {!loading && (
         <div
@@ -154,45 +208,56 @@ const ListItem = () => {
 
               <div
                 style={{
+                  marginTop: 10,
                   display: "flex",
-                  flexDirection: "column",
+                  gap: 8,
+                  flexWrap: "wrap",
                   alignItems: "center",
-                  gap: "8px",
-                  marginTop: "12px",
                 }}
               >
                 <button
                   onClick={() => addToCart(item)}
                   style={{
-                    color: "white",
-                    backgroundColor: "#333230ff",
-                    border: "1px solid #222220ff",
-                    borderRadius: "20px",
-                    padding: "8px 16px",
-                    cursor: "pointer",
-                    fontWeight: 600,
-                    width: "100%",
-                    transition: "background 0.2s",
+                    padding: "6px 10px",
+                    borderRadius: 6,
+                    border: "1px solid #ddd",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#3a3a35ff")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#161615ff")
-                  }
                 >
                   Add to Cart
                 </button>
 
-                <Link
-                  to="/cart"
-                  style={{
-                    fontSize: "14px",
-                    textDecoration: "none",
-                    color: "#007185",
-                    fontWeight: 500,
-                  }}
-                >
+                {/* 管理员可见 */}
+                {role === "admin" && (
+                  <>
+                    <Link
+                      to={`/items/${item.id}/edit`}
+                      style={{
+                        padding: "6px 10px",
+                        border: "1px solid #ddd",
+                        borderRadius: 6,
+                        textDecoration: "none",
+                        color: "#111",
+                      }}
+                    >
+                      Edit
+                    </Link>
+
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      style={{
+                        padding: "6px 10px",
+                        background: "#e11d48",
+                        color: "#fff",
+                        border: 0,
+                        borderRadius: 6,
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+
+                <Link to="/cart" style={{ marginLeft: "auto" }}>
                   Go to Cart →
                 </Link>
               </div>
@@ -201,7 +266,8 @@ const ListItem = () => {
         </div>
       )}
 
-      <div style={{ marginTop: "30px", textAlign: "center" }}>
+     
+      <div style={{ marginTop: "20px", textAlign: "center" }}>
         <button
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
           disabled={page === 1}
@@ -252,7 +318,7 @@ const ListItem = () => {
         >
           {[12, 15, 20, 30, 50].map((n) => (
             <option key={n} value={n}>
-              {n}/page
+              {n} / page
             </option>
           ))}
         </select>
