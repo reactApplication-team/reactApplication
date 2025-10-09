@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+// Pick API base from env; fall back to localhost in dev
+const API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  (import.meta.env.DEV
+    ? "http://localhost:5000"
+    : "https://your-api.onrender.com");
+
 export default function CheckoutButton({ products = [] }) {
   const [loading, setLoading] = useState(false);
+
   const handleCheckout = async () => {
     try {
       if (!products.length) {
@@ -10,17 +17,26 @@ export default function CheckoutButton({ products = [] }) {
         return;
       }
       setLoading(true);
-      const res = await fetch("http://localhost:5000/create-checkout-session", {
+
+      const res = await fetch(`${API_BASE}/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ products }),
       });
-      const payload = await res.json();
-      if (!res.ok) {
-        throw new Error(payload?.error || `Failed (HTTP ${res.status})`);
+
+      let payload;
+      try {
+        payload = await res.json();
+      } catch {
+        throw new Error(`Unexpected response (HTTP ${res.status})`);
       }
-      if (!payload.url) throw new Error("No checkout URL returned from server");
-      window.location.href = payload.url;
+
+      if (!res.ok)
+        throw new Error(payload?.error || `Failed (HTTP ${res.status})`);
+      if (!payload?.url)
+        throw new Error("No checkout URL returned from server");
+
+      window.location.assign(payload.url);
     } catch (err) {
       console.error("Checkout error:", err);
       alert(`Checkout error: ${err.message || "Something went wrong"}`);
@@ -28,6 +44,7 @@ export default function CheckoutButton({ products = [] }) {
       setLoading(false);
     }
   };
+
   return (
     <button
       onClick={handleCheckout}
