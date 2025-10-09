@@ -43,7 +43,7 @@ export default function App() {
         <Route path="/items/:itemId/edit" element={<UpdateItemPage />} /> 
         <Route path="/" element={<DashboardPage />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/Cart" element={<Cart />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/tags/:tag" element={<TagPage />} />
       </Route>
