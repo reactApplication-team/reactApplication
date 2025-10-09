@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Pick API base from env; fall back to localhost in dev
 const API_BASE =
   import.meta.env.VITE_API_BASE ||
   (import.meta.env.DEV
