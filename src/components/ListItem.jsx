@@ -54,7 +54,6 @@ const ListItem = () => {
     };
   }, [page, limit, setItems]);
 
-
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
     try {
@@ -67,10 +66,8 @@ const ListItem = () => {
     }
   };
 
-
   return (
     <div style={{ padding: "20px" }}>
-     
       <div
         style={{
           position: "sticky",
@@ -100,7 +97,8 @@ const ListItem = () => {
             boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
           }}
         >
-          Current Role: {role === "admin" ? "Admin" : "Customer"} (click to switch)
+          Current Role: {role === "admin" ? "Admin" : "Customer"} (click to
+          switch)
         </button>
 
         {role === "admin" && (
@@ -120,7 +118,6 @@ const ListItem = () => {
         )}
       </div>
 
-   
       {loading && <p>Loading items...</p>}
 
       {!loading && (
@@ -266,7 +263,6 @@ const ListItem = () => {
         </div>
       )}
 
-     
       <div style={{ marginTop: "20px", textAlign: "center" }}>
         <button
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
