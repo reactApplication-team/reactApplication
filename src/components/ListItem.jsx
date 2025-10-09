@@ -55,7 +55,10 @@ const ListItem = () => {
         >
           {items.map((item) => (
             <div key={item.id}>
-              <Link className="linkToDetiles" to={`/items/${item.id}`}>
+              <Link
+                className="linkToDetiles"
+                to={`/items/${item.id}`}
+                 >
                 <div>
                   <h3>{item.title}</h3>
                   <p>${Number(item.price).toFixed(2)}</p>
