@@ -7,7 +7,7 @@ import DashboardPage from "./pages/DashboardPage";
 import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TagPage from "./pages/TagsPage";
-import Cart from "./components/Cart";
+import Cart from "./components/cart";
 import CreateItemPage from "../src/pages/CreateItemPage"
 import UpdateItemPage from "../src/pages/UpdateItemPage"
 import "../src/styles/App.css";
