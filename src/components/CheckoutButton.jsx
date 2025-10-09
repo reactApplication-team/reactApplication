@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-
+// Pick API base from env; fall back to localhost in dev
 const API_BASE =
   import.meta.env.VITE_API_BASE ||
   (import.meta.env.DEV
@@ -26,10 +24,17 @@ export default function CheckoutButton({ products = [] }) {
         body: JSON.stringify({ products }),
       });
 
-      const payload = await res.json();
+      let payload;
+      try {
+        payload = await res.json();
+      } catch {
+        throw new Error(`Unexpected response (HTTP ${res.status})`);
+      }
+
       if (!res.ok)
         throw new Error(payload?.error || `Failed (HTTP ${res.status})`);
-      if (!payload.url) throw new Error("No checkout URL returned from server");
+      if (!payload?.url)
+        throw new Error("No checkout URL returned from server");
 
       window.location.assign(payload.url);
     } catch (err) {
