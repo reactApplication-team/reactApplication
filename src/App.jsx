@@ -8,9 +8,9 @@ import ItemsDetailsPage from "./pages/ItemsDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TagPage from "./pages/TagsPage";
 import Cart from "./components/Cart";
+import CreateItemPage from "../src/pages/CreateItemPage"
+import UpdateItemPage from "../src/pages/UpdateItemPage"
 import "../src/styles/App.css";
-
-
 
 function PageWrapper({ isSidebarOpen, toggleSidebar }) {
   return (
@@ -18,8 +18,6 @@ function PageWrapper({ isSidebarOpen, toggleSidebar }) {
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
       <main className="main-content">
-        <h1>Main Content</h1>
-    
         <Outlet />
       </main>
       <Footer />
@@ -41,7 +39,8 @@ export default function App() {
           />
         }
       >
-       
+        <Route path="/items/new" element={<CreateItemPage />} />
+        <Route path="/items/:itemId/edit" element={<UpdateItemPage />} /> 
         <Route path="/" element={<DashboardPage />} />
         <Route path="items/:itemId" element={<ItemsDetailsPage />} />
         <Route path="/cart" element={<Cart />} />

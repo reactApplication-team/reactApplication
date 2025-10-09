@@ -35,7 +35,7 @@ export default function CheckoutButton({ products = [] }) {
       style={{
         padding: "10px 20px",
         fontSize: "16px",
-        background: loading ? "#96A0F0" : "#6772E5",
+        background: loading ? "#3d3d3dff" : "#333333",
         color: "#fff",
         border: "none",
         borderRadius: "4px",
