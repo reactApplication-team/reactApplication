@@ -57,17 +57,17 @@
 }
 
 .dropdownItem:hover {
-  background-color: #b08d57;
+  background-color: #333333;
   color: white;
 }
 
 .dropdownItem a {
-  color: #000;
+  color: #000000;
   text-decoration: none;
   display: block;
 }
 .dropdownItem a:hover {
-  color: #e3e3e3;
+  color: #ffffff;
   text-decoration: none;
   display: block;
 }
