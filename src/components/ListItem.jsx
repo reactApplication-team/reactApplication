@@ -70,7 +70,7 @@ const ListItem = () => {
     <div style={{ padding: "20px" }}>
       <div
         style={{
-          position: "sticky",
+          position: "relative",
           top: 0,
           background: "#f8fafc",
           zIndex: 10,
@@ -218,6 +218,7 @@ const ListItem = () => {
                     padding: "6px 10px",
                     borderRadius: 6,
                     border: "1px solid #ddd",
+                    margin: "auto",
                   }}
                 >
                   Add to Cart
@@ -253,10 +254,6 @@ const ListItem = () => {
                     </button>
                   </>
                 )}
-
-                <Link to="/cart" style={{ marginLeft: "auto" }}>
-                  Go to Cart →
-                </Link>
               </div>
             </div>
           ))}
