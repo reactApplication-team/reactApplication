@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import ListItem from "../components/ListItem";
-import CloudinaryGallery from "../components/CloudinaryGallery";
 import WeatherWidget from "../components/WeatherWidget";
 import AmazonCard from "../components/AmazonCard";
 import { useItems } from "../context/ItemsContext";
@@ -79,8 +78,6 @@ const DashboardPage = () => {
           ))}
         </div>
       </section>
-
-      <CloudinaryGallery />
 
       <ListItem />
       <WeatherWidget onWeatherChange={setWeatherInfo} />
