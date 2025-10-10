@@ -65,6 +65,7 @@
   color: #000000;
   text-decoration: none;
   display: block;
+  text-transform: capitalize;
 }
 .dropdownItem a:hover {
   color: #ffffff;
